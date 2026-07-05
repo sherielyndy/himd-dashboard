@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HIMD Accomplishment Dashboard</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      color: #222;
+    }
+
+    header {
+      background: #8b1e1e;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .card p {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 10px 0 0;
+      color: #8b1e1e;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 20px;
+    }
+
+    .chart-box {
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      margin-top: 25px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #8b1e1e;
+      color: white;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 12px;
+      color: #777;
+    }
+
+    @media(max-width: 600px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Health Information Management Department</h1>
+  <h2>Accomplishment Dashboard</h2>
+  <p>Daily • Weekly • Monthly • Yearly Monitoring</p>
+</header>
+
+<div class="container">
+
+  <div class="cards">
+    <div class="card">
+      <h3>Total Income Generated</h3>
+      <p>₱61,110</p>
+    </div>
+
+    <div class="card">
+      <h3>Total Patients Served</h3>
+      <p>8,319</p>
+    </div>
+
+    <div class="card">
+      <h3>HIMD Main</h3>
+      <p>4,341</p>
+    </div>
+
+    <div class="card">
+      <h3>HIMD OPD</h3>
+      <p>3,978</p>
+    </div>
+
+    <div class="card">
+      <h3>PhilHealth Claims Processed</h3>
+      <p>2,157</p>
+    </div>
+
+    <div class="card">
+      <h3>PHR Submitted to HIMD</h3>
+      <p>4,563</p>
+    </div>
+
+    <div class="card">
+      <h3>Death Certificates Processed</h3>
+      <p>618</p>
+    </div>
+
+    <div class="card">
+      <h3>Birth Certificates Processed</h3>
+      <p>547</p>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="chart-box">
+      <h3>Weekly Income Generated</h3>
+      <canvas id="weeklyIncomeChart"></canvas>
+    </div>
+
+    <div class="chart-box">
+      <h3>Weekly Patients Served</h3>
+      <canvas id="weeklyPatientsChart"></canvas>
+    </div>
+
+    <div class="chart-box">
+      <h3>Monthly Services Summary</h3>
+      <canvas id="servicesChart"></canvas>
+    </div>
+
+    <div class="chart-box">
+      <h3>PHR Submitted vs Returned</h3>
+      <canvas id="phrChart"></canvas>
+    </div>
+
+    <div class="chart-box">
+      <h3>ER Blotter Received vs Missing</h3>
+      <canvas id="erChart"></canvas>
+    </div>
+
+    <div class="chart-box">
+      <h3>Income Generating Breakdown</h3>
+      <canvas id="incomeBreakdownChart"></canvas>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Indicator</th>
+        <th>Monthly Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Total Income Generated</td><td>₱61,110</td></tr>
+      <tr><td>Total Patients Served</td><td>8,319</td></tr>
+      <tr><td>HIMD Main</td><td>4,341</td></tr>
+      <tr><td>HIMD OPD</td><td>3,978</td></tr>
+      <tr><td>PHR Retrieved for Doctor’s Viewing</td><td>430</td></tr>
+      <tr><td>PhilHealth Claims Processed</td><td>2,157</td></tr>
+      <tr><td>Court Hearings Attended</td><td>8</td></tr>
+      <tr><td>Death Certificates Processed</td><td>618</td></tr>
+      <tr><td>Returned Death Certificates</td><td>158</td></tr>
+      <tr><td>Birth Certificates Processed</td><td>547</td></tr>
+      <tr><td>Medical Certificates Processed</td><td>91</td></tr>
+      <tr><td>PHR Submitted to HIMD</td><td>4,563</td></tr>
+      <tr><td>PHR Returned Due to Deficiencies</td><td>283</td></tr>
+      <tr><td>ER Blotter Received</td><td>10,652</td></tr>
+      <tr><td>ER Blotter Missing</td><td>365</td></tr>
+    </tbody>
+  </table>
+
+</div>
+
+<footer>
+  HIMD Dashboard | For aggregated monitoring only | Do not upload confidential patient information
+</footer>
+
+<script>
+  const weeks = ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"];
+
+  new Chart(document.getElementById("weeklyIncomeChart"), {
+    type: "bar",
+    data: {
+      labels: weeks,
+      datasets: [{
+        label: "Income Generated",
+        data: [5290, 14740, 13060, 11280, 17420],
+        backgroundColor: "#8b1e1e"
+      }]
+    }
+  });
+
+  new Chart(document.getElementById("weeklyPatientsChart"), {
+    type: "line",
+    data: {
+      labels: weeks,
+      datasets: [{
+        label: "Patients Served",
+        data: [704, 1989, 1912, 1878, 1613],
+        borderColor: "#8b1e1e",
+        backgroundColor: "#8b1e1e",
+        tension: 0.3
+      }]
+    }
+  });
+
+  new Chart(document.getElementById("servicesChart"), {
+    type: "bar",
+    data: {
+      labels: [
+        "HIMD Main",
+        "HIMD OPD",
+        "PhilHealth",
+        "Death Cert.",
+        "Birth Cert.",
+        "Medical Cert.",
+        "PHR Submitted"
+      ],
+      datasets: [{
+        label: "Monthly Total",
+        data: [4341, 3978, 2157, 618, 547, 91, 4563],
+        backgroundColor: "#b33a3a"
+      }]
+    }
+  });
+
+  new Chart(document.getElementById("phrChart"), {
+    type: "doughnut",
+    data: {
+      labels: ["PHR Submitted", "PHR Returned Due to Deficiencies"],
+      datasets: [{
+        data: [4563, 283],
+        backgroundColor: ["#8b1e1e", "#e0a100"]
+      }]
+    }
+  });
+
+  new Chart(document.getElementById("erChart"), {
+    type: "pie",
+    data: {
+      labels: ["ER Blotter Received", "ER Blotter Missing"],
+      datasets: [{
+        data: [10652, 365],
+        backgroundColor: ["#8b1e1e", "#d9534f"]
+      }]
+    }
+  });
+
+  new Chart(document.getElementById("incomeBreakdownChart"), {
+    type: "bar",
+    data: {
+      labels: [
+        "Late Reg. BC",
+        "Medical Cert.",
+        "CTC",
+        "Insurance",
+        "Medico Legal"
+      ],
+      datasets: [{
+        label: "Amount",
+        data: [6640, 9040, 42680, 2250, 500],
+        backgroundColor: "#8b1e1e"
+      }]
+    }
+  });
+</script>
+
+</body>
+</html>
